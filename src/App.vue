@@ -22,7 +22,7 @@
         Click Me to increase count
       </button>
 
-      <button v-on:></button>
+      <hr />
 
       <hr class="my-6" />
       <div class="flex flex-row flex-wrap">

@@ -22,9 +22,19 @@
         Click Me to increase count
       </button>
 
-      <hr />
+      <hr class="my-6" />
+
+      <!-- You can apply classes, v-bind:classes directly to components,
+      this will be on the root element of that component -->
+      <Tile2 class="bg-red-300"/>
+
 
       <hr class="my-6" />
+      <Tile3 />
+
+
+      <hr class="my-6" />
+
       <div class="flex flex-row flex-wrap">
         <div class="card" v-for="item in items" v-bind:key="item.key">
           <h2>Name: {{ item.name }}</h2>
@@ -39,12 +49,16 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import Nav from './components/Nav.vue'
+import Tile2 from './components/Tile2'
+import Tile3 from './components/Tile3'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    Nav
+    Nav,
+    Tile2,
+    Tile3
   },
   watch: {
     count: function(val, oldVal) {

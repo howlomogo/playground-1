@@ -149,3 +149,48 @@ https://vuejs.org/v2/guide/conditional.html#Controlling-Reusable-Elements-with-k
 Generally speaking, v-if has higher toggle costs while v-show has higher initial render costs. So prefer v-show if you need to toggle something very often, and prefer v-if if the condition is unlikely to change at runtime.
 
 NOTE - Using v-if and v-for together is NOT recommended. See the style guide for further information. - https://vuejs.org/v2/style-guide/#Avoid-v-if-with-v-for-essential - This refers to on exactly the same element not nested.
+
+
+Mutation:
+Some info about mutation
+https://vuejs.org/v2/guide/list.html#Mutation-Methods
+
+
+Reactivity / change detection caveats
+https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
+
+
+Displaying Filtered/Sorted Results
+Sometimes we want to display a filtered or sorted version of an array without actually mutating or resetting the original data. In this case, you can create a computed property that returns the filtered or sorted array.
+
+For example:
+```
+<li v-for="n in evenNumbers">{{ n }}</li>
+data: {
+  numbers: [ 1, 2, 3, 4, 5 ]
+},
+computed: {
+  evenNumbers: function () {
+    return this.numbers.filter(function (number) {
+      return number % 2 === 0
+    })
+  }
+}
+```
+
+In situations where computed properties are not feasible (e.g. inside nested v-for loops), you can use a method:
+```
+<ul v-for="set in sets">
+  <li v-for="n in even(set)">{{ n }}</li>
+</ul>
+data: {
+  sets: [[ 1, 2, 3, 4, 5 ], [6, 7, 8, 9, 10]]
+},
+methods: {
+  even: function (numbers) {
+    return numbers.filter(function (number) {
+      return number % 2 === 0
+    })
+  }
+}
+```

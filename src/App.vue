@@ -28,11 +28,14 @@
       this will be on the root element of that component -->
       <Tile2 class="bg-red-300"/>
 
-
       <hr class="my-6" />
       <Tile3 />
 
+      <hr class="my-6" />
 
+      <Tile4 />
+
+      <hr class="my-6" />
       <hr class="my-6" />
 
       <div class="flex flex-row flex-wrap">
@@ -51,6 +54,7 @@ import HelloWorld from './components/HelloWorld.vue'
 import Nav from './components/Nav.vue'
 import Tile2 from './components/Tile2'
 import Tile3 from './components/Tile3'
+import Tile4 from './components/Tile4'
 
 export default {
   name: 'App',
@@ -58,7 +62,8 @@ export default {
     HelloWorld,
     Nav,
     Tile2,
-    Tile3
+    Tile3,
+    Tile4
   },
   watch: {
     count: function(val, oldVal) {

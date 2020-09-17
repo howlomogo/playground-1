@@ -36,6 +36,17 @@
       <Tile4 />
 
       <hr class="my-6" />
+
+      <Tile5 />
+
+      <hr class="my-6" />
+      <Tile6 />
+      <hr class="my-6" />
+      <hr class="my-6" />
+      <hr class="my-6" />
+      <hr class="my-6" />
+      <hr class="my-6" />
+      <hr class="my-6" />
       <hr class="my-6" />
 
       <div class="flex flex-row flex-wrap">
@@ -50,11 +61,13 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import Nav from './components/Nav.vue'
+import HelloWorld from './components/HelloWorld'
+import Nav from './components/Nav'
 import Tile2 from './components/Tile2'
 import Tile3 from './components/Tile3'
 import Tile4 from './components/Tile4'
+import Tile5 from './components/Tile5'
+import Tile6 from './components/Tile6'
 
 export default {
   name: 'App',
@@ -63,7 +76,9 @@ export default {
     Nav,
     Tile2,
     Tile3,
-    Tile4
+    Tile4,
+    Tile5,
+    Tile6
   },
   watch: {
     count: function(val, oldVal) {

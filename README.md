@@ -194,3 +194,79 @@ methods: {
   }
 }
 ```
+
+You can also define custom key modifier aliases via the global config.keyCodes object:
+https://vuejs.org/v2/api/#keyCodes
+
+
+Form Input Bindings
+You can use the v-model directive to create two-way data bindings on form input, textarea, and select elements. It automatically picks the correct way to update the element based on the input type.
+
+v-model will IGNORE the initial value, checked, or selected attributes found on any form elements. It will always treat the Vue instance data as the source of truth. You should declare the initial value on the JavaScript side, inside the data option of your component.
+
+v-model internally uses different properties and emits different events for different input elements:
+
+text and textarea elements use value property and input event;
+checkboxes and radiobuttons use checked property and change event;
+select fields use value as a prop and change as an event.
+
+
+Value Bindings:
+https://vuejs.org/v2/guide/forms.html#Value-Bindings
+
+For radio, checkbox and select options, the v-model binding values are usually static strings (or booleans for checkboxes):
+```
+<!-- `picked` is a string "a" when checked -->
+<input type="radio" v-model="picked" value="a">
+
+<!-- `toggle` is either true or false -->
+<input type="checkbox" v-model="toggle">
+
+<!-- `selected` is a string "abc" when the first option is selected -->
+<select v-model="selected">
+  <option value="abc">ABC</option>
+</select>
+```
+
+But sometimes, we may want to bind the value to a dynamic property on the Vue instance. We can use v-bind to achieve that. In addition, using v-bind allows us to bind the input value to non-string values.
+
+Checkbox
+```
+<input
+  type="checkbox"
+  v-model="toggle"
+  true-value="yes"
+  false-value="no"
+>
+```
+// when checked:
+```
+vm.toggle === 'yes'
+```
+// when unchecked:
+```
+vm.toggle === 'no'
+```
+!!The true-value and false-value attributes don’t affect the input’s value attribute, because browsers don’t include unchecked boxes in form submissions. To guarantee that one of two values is submitted in a form (i.e. “yes” or “no”), use radio inputs instead.!!
+
+Radio
+```
+<input type="radio" v-model="pick" v-bind:value="a">
+```
+// when checked:
+```
+vm.pick === vm.a
+```
+
+Select Options
+```
+<select v-model="selected">
+  <!-- inline object literal -->
+  <option v-bind:value="{ number: 123 }">123</option>
+</select>
+```
+// when selected:
+```
+typeof vm.selected // => 'object'
+vm.selected.number // => 123
+```

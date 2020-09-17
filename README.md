@@ -270,3 +270,141 @@ Select Options
 typeof vm.selected // => 'object'
 vm.selected.number // => 123
 ```
+
+Component basics
+
+There are a few root-specific options like el.
+
+Note: A component’s data option is a function so that each instance can maintain an independent copy of the returned data object, if it was an object they are all the
+
+You can also register a component globally though not ideal
+https://vueschool.io/lessons/global-vs-local-components
+
+LISTENING TO CHILD COMPONENT EVENTS: $emit
+https://vuejs.org/v2/guide/components.html#Listening-to-Child-Components-Events
+As we develop our <blog-post> component, some features may require communicating back up to the parent. For example, we may decide to include an accessibility feature to enlarge the text of blog posts, while leaving the rest of the page its default size:
+
+In the parent, we can support this feature by adding a postFontSize data property:
+```
+new Vue({
+  el: '#blog-posts-events-demo',
+  data: {
+    posts: [/* ... */],
+    postFontSize: 1
+  }
+})
+```
+Which can be used in the template to control the font size of all blog posts:
+```
+<div id="blog-posts-events-demo">
+  <div :style="{ fontSize: postFontSize + 'em' }">
+    <blog-post
+      v-for="post in posts"
+      v-bind:key="post.id"
+      v-bind:post="post"
+    ></blog-post>
+  </div>
+</div>
+```
+Now let’s add a button to enlarge the text right before the content of every post:
+```
+Vue.component('blog-post', {
+  props: ['post'],
+  template: `
+    <div class="blog-post">
+      <h3>{{ post.title }}</h3>
+      <button>
+        Enlarge text
+      </button>
+      <div v-html="post.content"></div>
+    </div>
+  `
+})
+```
+The problem is, this button doesn’t do anything:
+```
+<button>
+  Enlarge text
+</button>
+```
+When we click on the button, we need to communicate to the parent that it should enlarge the text of all posts. Fortunately, Vue instances provide a custom events system to solve this problem. The parent can choose to listen to any event on the child component instance with v-on, just as we would with a native DOM event:
+```
+<blog-post
+  ...
+  v-on:enlarge-text="postFontSize += 0.1"
+></blog-post>
+```
+Then the child component can emit an event on itself by calling the built-in $emit method, passing the name of the event:
+```
+<button v-on:click="$emit('enlarge-text')">
+  Enlarge text
+</button>
+```
+Thanks to the v-on:enlarge-text="postFontSize += 0.1" listener, the parent will receive the event and update postFontSize value.
+https://vuejs.org/v2/guide/components.html#Listening-to-Child-Components-Events
+
+^^^^ This can basically be done in the same way as passing a function with bind, like in react, however emit is best practise for Vue and also you will be able to see the event firing in the vue chrome extension.  There are also some other advantages like this.$root.on
+
+
+Using v-model on components
+https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components
+
+Custom events can also be used to create custom inputs that work with v-model. Remember that:
+```
+<input v-model="searchText">
+```
+does the same thing as:
+```
+<input
+  v-bind:value="searchText"
+  v-on:input="searchText = $event.target.value"
+>
+```
+When used on a component, v-model instead does this:
+```
+<custom-input
+  v-bind:value="searchText"
+  v-on:input="searchText = $event"
+></custom-input>
+```
+For this to actually work though, the <input> inside the component must:
+
+Bind the value attribute to a value prop
+On input, emit its own custom input event with the new value
+Here’s that in action:
+```
+Vue.component('custom-input', {
+  props: ['value'],
+  template: `
+    <input
+      v-bind:value="value"
+      v-on:input="$emit('input', $event.target.value)"
+    >
+  `
+})
+```
+Now v-model should work perfectly with this component:
+```
+<custom-input v-model="searchText"></custom-input>
+```
+
+Dynamic Components
+https://vuejs.org/v2/guide/components.html#Dynamic-Components
+
+DOM Template parsing
+https://vuejs.org/v2/guide/components.html#DOM-Template-Parsing-Caveats
+
+Some HTML elements, such as <ul>, <ol>, <table> and <select> have restrictions on what elements can appear inside them, and some elements such as <li>, <tr>, and <option> can only appear inside certain other elements.
+
+This will lead to issues when using components with elements that have such restrictions. For example:
+```
+<table>
+  <blog-post-row></blog-post-row>
+</table>
+```
+The custom component <blog-post-row> will be hoisted out as invalid content, causing errors in the eventual rendered output. Fortunately, the is special attribute offers a workaround:
+```
+<table>
+  <tr is="blog-post-row"></tr>
+</table>
+```

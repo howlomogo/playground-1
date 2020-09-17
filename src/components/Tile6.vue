@@ -104,6 +104,8 @@
         <!-- trim modifier will remove whitespace, to your v-model-managed inputs: -->
         <input class="border" v-model.trim="msg2">
 
+        <h1>{{ user.name }}</h1>
+
   </div>
 </template>
 
@@ -130,6 +132,9 @@ export default {
             age: 0,
             msg2: ''
         }
+    },
+    props: {
+        user: Object
     },
     methods: {
         func1: function() {

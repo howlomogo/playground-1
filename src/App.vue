@@ -40,7 +40,15 @@
       <Tile5 />
 
       <hr class="my-6" />
-      <Tile6 />
+      <!-- Pass user prop -->
+      <Tile6 v-bind:user="{ name: 'Matt'}" />
+
+      <Tile7 />
+
+      <!-- Need to bind object, This will just pass as a string  -->
+      <!-- <Tile6 user="{ name: 'Matt'}" /> -->
+
+
       <hr class="my-6" />
       <hr class="my-6" />
       <hr class="my-6" />
@@ -68,6 +76,7 @@ import Tile3 from './components/Tile3'
 import Tile4 from './components/Tile4'
 import Tile5 from './components/Tile5'
 import Tile6 from './components/Tile6'
+import Tile7 from './components/Tile7'
 
 export default {
   name: 'App',
@@ -78,7 +87,8 @@ export default {
     Tile3,
     Tile4,
     Tile5,
-    Tile6
+    Tile6,
+    Tile7
   },
   watch: {
     count: function(val, oldVal) {

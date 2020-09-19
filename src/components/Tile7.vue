@@ -15,7 +15,21 @@
       <!-- The content inside Tile73 will be placed whereever <slot></slot>
       is within Tile73, it can be html or just any content
       -->
-      <Tile73>
+
+      <!-- Docs say to use kebab case for props, however camelCase here works? -->
+      <!-- Passing numbers, we need to v-bind if a number otherwise it will be a string -->
+      <!-- Passing booleans, we need to v-bind otherwise it will be a string -->
+      <!-- Array need to v-bind otherwise String -->
+      <!-- Object need to v-bind otherwise String -->
+      <Tile73
+        v-bind:testPropName="testProp.name + ' Is my name'"
+        v-bind:testPropAge="testProp.age"
+        testPropAgeString="testProp.age"
+        testPropBool
+        v-bind:testPropBool2="false"
+        v-bind:testArr="['Cheese', 'Flower', 'Playstation']"
+        v-bind:testProp="testProp"
+      >
           HELLO THERE!
       </Tile73>
 
@@ -57,7 +71,11 @@ export default {
         return {
             count2: 0,
             currentTab: "Tab1",
-            tabs: ["Tab1", "Tab2", "Tab3"]
+            tabs: ["Tab1", "Tab2", "Tab3"],
+            testProp: {
+              name: "Matt",
+              age: 33
+            }
         }
     },
     components: {

@@ -408,3 +408,92 @@ The custom component <blog-post-row> will be hoisted out as invalid content, cau
   <tr is="blog-post-row"></tr>
 </table>
 ```
+
+
+Props
+You  can list props as either array
+```
+props: ['title', 'likes', 'isPublished', 'commentIds', 'author']
+```
+Or as an object which contains the value and type, better to be specific I'd say and specific the type.
+```
+props: {
+  title: String,
+  likes: Number,
+  isPublished: Boolean,
+  commentIds: Array,
+  author: Object,
+  callback: Function,
+  contactsPromise: Promise // or any other constructor
+}
+```
+
+Like React do not mutate props that have been passed down IN the child component.
+
+Prop Validations
+```
+Vue.component('my-component', {
+  props: {
+    // Basic type check (`null` and `undefined` values will pass any type validation)
+    propA: Number,
+    // Multiple possible types
+    propB: [String, Number],
+    // Required string
+    propC: {
+      type: String,
+      required: true
+    },
+    // Number with a default value
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // Object with a default value
+    propE: {
+      type: Object,
+      // Object or array defaults must be returned from
+      // a factory function
+      default: function () {
+        return { message: 'hello' }
+      }
+    },
+    // Custom validator function
+    propF: {
+      validator: function (value) {
+        // The value must match one of these strings
+        return ['success', 'warning', 'danger'].indexOf(value) !== -1
+      }
+    }
+  }
+})
+```
+
+Type Checks can be
+String
+Number
+Boolean
+Array
+Object
+Date
+Function
+Symbol
+
+Non Prop Attributes
+https://vuejs.org/v2/guide/components-props.html#Non-Prop-Attributes
+
+--- 
+
+Replacing / merging with existing attributes
+passing a attribute from component WILL replace any the root template has set, ASIDE from styles and classes, these are merged. i.e.
+
+parent component
+```
+<component1 type="text" class="test2 />
+```
+
+component1
+```
+<div type="number" class="test1></div> <--- root of component1
+```
+Here type would be text, and class would be 'test2 test1'
+

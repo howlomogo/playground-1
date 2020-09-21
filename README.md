@@ -1022,3 +1022,5 @@ Even if you don’t like the idea of Single-File Components, you can still lever
 <script src="./my-component.js"></script>
 <style src="./my-component.css"></style>
 ```
+// @ is an alias to /src
+import '@/components/comp1'

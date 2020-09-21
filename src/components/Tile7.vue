@@ -7,15 +7,15 @@
         v-on:matts-func="func1"
         v-on:matts-func2="func2"
         v-on:matts-func3="count2 += $event"
-        v-bind:hello="func1" />
+        v-bind:hello="func1"
+        />
       <h1>{{ count2 }}</h1>
 
       <br />
       <hr />
       <!-- The content inside Tile73 will be placed whereever <slot></slot>
-      is within Tile73, it can be html or just any content
+      is within Tile73, it can be html, another component or just any content
       -->
-
       <!-- Docs say to use kebab case for props, however camelCase here works? -->
       <!-- Passing numbers, we need to v-bind if a number otherwise it will be a string -->
       <!-- Passing booleans, we need to v-bind otherwise it will be a string -->
@@ -30,6 +30,7 @@
         v-bind:testArr="['Cheese', 'Flower', 'Playstation']"
         v-bind:testProp="testProp"
       >
+          <!-- Hello there! is added inside <slot></slot>, if <slot> is not in the component this content is just disgarded -->
           HELLO THERE!
       </Tile73>
 
@@ -46,6 +47,8 @@
         {{ tab }}
       </button>
 
+
+
     <!-- Sometimes, it’s useful to dynamically switch between components,
     like in a tabbed interface, you can do this using vues <component> element
         with the 'is' special attribute-->
@@ -53,12 +56,21 @@
       <component v-bind:is="currentTab" class="tab"></component>
     </div>
 
+    <br />
+    <!-- You can add native events to the root of a component from the parent like below
+    by using the v-on native, here focus the input to change border color, This isn't really
+    a good idea though as the component structure may be change at some point -->
+    <Tile74 v-on:focus.native="inputFocused($event)" />
+    <!-- To solve this however, -->
+
+    <br />
   </div>
 </template>
 
 <script>
 import Tile72 from './Tile72'
 import Tile73 from './Tile73'
+import Tile74 from './Tile74'
 
 // These do NOT have to be in the same folder btw
 import Tab1 from './tabs/Tab1'
@@ -81,6 +93,7 @@ export default {
     components: {
         Tile72,
         Tile73,
+        Tile74,
         Tab1,
         Tab2,
         Tab3
@@ -93,6 +106,11 @@ export default {
             // The countValue here is the $emits 2nd param, in this case an array [1, 10, 5]
             console.log(countValue)
             this.count2+=countValue[2];
+        },
+        inputFocused: function(event) {
+          console.log(event.target)
+          event.target.classList.add("border-red-500")
+          console.log('FOCUSED')
         }
     }
 }

@@ -50,6 +50,8 @@
 
 
       <hr class="my-6" />
+
+      <Tile8 />
       <hr class="my-6" />
       <hr class="my-6" />
       <hr class="my-6" />
@@ -77,6 +79,7 @@ import Tile4 from './components/Tile4'
 import Tile5 from './components/Tile5'
 import Tile6 from './components/Tile6'
 import Tile7 from './components/Tile7'
+import Tile8 from './components/Tile8'
 
 export default {
   name: 'App',
@@ -88,7 +91,8 @@ export default {
     Tile4,
     Tile5,
     Tile6,
-    Tile7
+    Tile7,
+    Tile8
   },
   watch: {
     count: function(val, oldVal) {

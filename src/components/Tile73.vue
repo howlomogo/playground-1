@@ -17,7 +17,7 @@
             <h6>{{ item }}</h6>
         </div>
         <h2>testProp is {{ typeof testProp }}</h2>
-
+        <br />
     </div>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
   <div class="bg-green-300 size">
+      <!-- Event names MUST be lower / kebab case, camelcase will not work -->
     <button class="btn-blue" v-on:click="$emit('matts-func')">
         Click me to $emit
     </button>
@@ -10,6 +11,10 @@
     <!-- We can use $emit‘s 2nd parameter to provide a value: -->
     <button class="btn-blue" v-on:click="$emit('matts-func2', [1, 10, 5])">
         Click me to $emit and send value
+    </button>
+
+    <button class="btn-blue" v-on:click="$emit('matts-func3', 10)">
+        Click me to $emit and send event value
     </button>
 
     <button class="btn-blue" v-on:click="$emit('matts-func3', 10)">
